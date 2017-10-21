@@ -132,10 +132,14 @@ check-lint::
 
 .PHONY: check-style
 check-style::
-	NO_LINT=true $(ESLINT) $(JS_FILES)
+	$(PRETTIER) --list-different "**/*.js"
+
+.PHONY: fix-style
+fix-style::
+	$(PRETTIER) --write "**/*.js"
 
 .PHONY: check
-check: check-lint check-style check-bash
+check: check-lint check-style check-prettier check-bash
 	@echo check ok
 
 .PHONY: clean
